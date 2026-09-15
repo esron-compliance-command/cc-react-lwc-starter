@@ -15,7 +15,7 @@ generic — no customer data, no package internals.
 ## Get it running
 
 ```bash
-git clone <this repo>
+git clone https://github.com/esron-compliance-command/cc-react-lwc-starter.git
 cd cc-react-lwc-starter
 
 npm install                      # sfdx-lwc-jest for the host tests
