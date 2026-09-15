@@ -33,7 +33,10 @@ public with sharing class StarterListController {
     public class ListRequest {
         public String objectApiName;
         public String search;
-        public SortState sort;
+        // NOT `sort`: Apex reserves that identifier (List.sort()), and the compiler rejects it as
+        // a member name. The client sends `sortState` for the same reason -- a small, real example
+        // of a platform constraint reaching all the way out into the JSON contract.
+        public SortState sortState;
         public Integer pageNumber;
         public Integer pageSize;
     }
@@ -95,7 +98,7 @@ public with sharing class StarterListController {
                 'SELECT ' + String.join(queryFieldNames(columns), ', ') +
                 ' FROM ' + objectName +
                 whereClause +
-                buildOrderBy(columns, request.sort) +
+                buildOrderBy(columns, request.sortState) +
                 ' LIMIT :pageSize OFFSET :recordOffset';
 
             List<SObject> records = Database.queryWithBinds(soql, pageBinds, AccessLevel.USER_MODE);
@@ -256,13 +259,13 @@ public with sharing class StarterListController {
         return term.replace('\\', '\\\\').replace('%', '\\%').replace('_', '\\_');
     }
 
-    private static String buildOrderBy(List<ResolvedColumn> columns, SortState sort) {
-        if (sort == null || String.isBlank(sort.apiName)) {
+    private static String buildOrderBy(List<ResolvedColumn> columns, SortState requested) {
+        if (requested == null || String.isBlank(requested.apiName)) {
             return ' ORDER BY ' + columns[0].queryName + ' ASC NULLS LAST';
         }
         for (ResolvedColumn column : columns) {
-            if (column.apiName == sort.apiName && column.sortable) {
-                String direction = sort.direction == 'desc' ? 'DESC' : 'ASC';
+            if (column.apiName == requested.apiName && column.sortable) {
+                String direction = requested.direction == 'desc' ? 'DESC' : 'ASC';
                 return ' ORDER BY ' + column.queryName + ' ' + direction + ' NULLS LAST';
             }
         }

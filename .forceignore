@@ -1,3 +1,10 @@
 package.xml
+
+# LWC configuration files
 **/jsconfig.json
 **/.eslintrc.json
+
+# LWC Jest tests. Without this line the deploy tries to COMPILE the test file as part of the
+# bundle and fails on "Invalid LWC imported identifier createElement" -- a confusing error with a
+# one-line fix, and the reason this entry is in every sfdx project template.
+**/__tests__/**

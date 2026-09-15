@@ -72,7 +72,7 @@ export function useRecordList(config: GridConfig): UseRecordListResult {
     fetchList({
       objectApiName: config.objectApiName,
       search: debouncedSearch,
-      sort,
+      sortState: sort,
       pageNumber,
       pageSize: PAGE_SIZE,
     })

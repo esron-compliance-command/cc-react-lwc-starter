@@ -38,7 +38,10 @@ export interface SortState {
 export interface ListRequest {
   objectApiName: string;
   search: string;
-  sort?: SortState;
+  // NOT `sort`. Apex reserves that identifier and will not compile a member called `sort`, so the
+  // wire name is `sortState` on both sides. A real platform constraint reaching out into the
+  // contract -- the kind of thing you only discover by deploying.
+  sortState?: SortState;
   pageNumber: number;
   pageSize: number;
 }

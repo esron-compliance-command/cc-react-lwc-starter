@@ -74,12 +74,12 @@ test('sorting asks the SERVER for a new page rather than reordering what is on s
   await userEvent.click(screen.getByRole('button', { name: /industry/i }));
 
   await waitFor(() => {
-    expect(requests.at(-1)?.sort).toEqual({ apiName: 'Industry', direction: 'asc' });
+    expect(requests.at(-1)?.sortState).toEqual({ apiName: 'Industry', direction: 'asc' });
   });
   // And a second click flips the direction rather than re-sorting ascending again.
   await userEvent.click(screen.getByRole('button', { name: /industry/i }));
   await waitFor(() => {
-    expect(requests.at(-1)?.sort).toEqual({ apiName: 'Industry', direction: 'desc' });
+    expect(requests.at(-1)?.sortState).toEqual({ apiName: 'Industry', direction: 'desc' });
   });
 });
 

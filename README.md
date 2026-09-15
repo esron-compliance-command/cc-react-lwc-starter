@@ -24,7 +24,7 @@ npm --prefix react-src install   # React, TypeScript, esbuild, vitest
 npm run build                    # React -> one static resource
 sf org login web --alias starter --set-default
 npm run deploy                   # Apex, CMDT, LWC and the bundle
-npm run test:apex                # Apex tests in the org
+npm run test:apex                # Apex tests in the org -- 12 of them, all green
 ```
 
 Then add **React Grid Host** to a Lightning app page (or an Experience Builder page) and set
@@ -115,6 +115,23 @@ new `@AuraEnabled` class must be in the community permission set, or customers s
 deploy reports complete success. On an LWR site you must also run `sf community publish` — skip it
 and the site keeps serving the previous bundle.
 
+**Three things this repo only learned by deploying.** All three passed every local check first —
+typecheck clean, 9 vitest green, 4 jest green — and all three failed the moment a real org saw them.
+That gap is the reason this starter exists.
+
+1. **`sort` is a reserved identifier in Apex.** A class member called `sort` does not compile
+   (`Identifier name is reserved: sort`). The wire contract is therefore `sortState` on *both*
+   sides — a platform constraint reaching all the way out into the JSON.
+2. **A custom-metadata record with `xmlns:xsi` declared on each `<value>`** instead of on the root
+   `<CustomMetadata>` element fails with `UNKNOWN_EXCEPTION` and **zero component failures**. No
+   line number, no file, nothing to grep. Declare the namespaces once, on the root.
+3. **`**/__tests__/**` must be in `.forceignore`**, or the deploy tries to compile your Jest test as
+   part of the LWC bundle and fails with `LWC1702: Invalid LWC imported identifier "createElement"`.
+
+Note what two of those have in common: `UNKNOWN_EXCEPTION` with no component detail. When you see
+that, stop reading your code and start bisecting the deploy by folder — objects first, then classes,
+then custom metadata, then LWC. The error text will not narrow it for you.
+
 **Never hardcode a namespace.** The real package prefix is one thing in production and another in QA.
 Serialize an SObject straight to the client and every custom field arrives as `cocmd__Status__c` in
 one org and `coqa__Status__c` in another. `StarterListController.toClientRows` is the firewall: the
@@ -175,7 +192,7 @@ They do not overlap by accident:
 - **Vitest** tests grid *behaviour* against a fake bridge. Fast enough to run on save.
 - **Jest** tests the *host* — that it configures before mounting, serializes correctly, and unmounts.
   Four tests, because the host should never grow enough logic to need more.
-- **Apex tests** assert *behaviour*, not coverage: paging, an injected sort field, the LIKE escaping,
+- **Apex tests** (12, verified green in a real org) assert *behaviour*, not coverage: paging, an injected sort field, the LIKE escaping,
   the offset ceiling, and a restricted user under `System.runAs`. A test that runs a method and
   asserts it did not throw is coverage theatre — it passes forever, including after you break the
   feature.

@@ -113,12 +113,12 @@ private class StarterListControllerTest {
     static void sortDirectionIsHonoured() {
         Map<String, Object> ascending = parse(
             StarterListController.fetchList(
-                request(new Map<String, Object>{ 'sort' => new Map<String, Object>{ 'apiName' => 'Name', 'direction' => 'asc' } })
+                request(new Map<String, Object>{ 'sortState' => new Map<String, Object>{ 'apiName' => 'Name', 'direction' => 'asc' } })
             )
         );
         Map<String, Object> descending = parse(
             StarterListController.fetchList(
-                request(new Map<String, Object>{ 'sort' => new Map<String, Object>{ 'apiName' => 'Name', 'direction' => 'desc' } })
+                request(new Map<String, Object>{ 'sortState' => new Map<String, Object>{ 'apiName' => 'Name', 'direction' => 'desc' } })
             )
         );
 
@@ -135,7 +135,7 @@ private class StarterListControllerTest {
             StarterListController.fetchList(
                 request(
                     new Map<String, Object>{
-                        'sort' => new Map<String, Object>{
+                        'sortState' => new Map<String, Object>{
                             'apiName' => 'Name DESC, (SELECT Id FROM Contacts)',
                             'direction' => 'asc'
                         }
