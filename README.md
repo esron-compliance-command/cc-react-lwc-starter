@@ -10,6 +10,10 @@ Deploy it to your own free Developer org, open the page, sort a column, and then
 that made that happen. Roughly twenty minutes end to end. Everything here is written fresh and
 generic — no customer data, no package internals.
 
+**The six-day preparation plan that this repo belongs to is in
+[`docs/Six-Day-Runway.pdf`](docs/Six-Day-Runway.pdf)** — one drill per day between now and the
+21 September start, for developers and QA. This README is its Day 4 and Day 5.
+
 ---
 
 ## Get it running
