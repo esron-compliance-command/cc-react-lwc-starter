@@ -1,0 +1,110 @@
+.rg-root {
+  font-family: inherit;
+  color: inherit;
+}
+
+.rg-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.rg-caption {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  flex: 1 1 auto;
+}
+.rg-search {
+  padding: 6px 10px;
+  border: 1px solid #c9ccd1;
+  border-radius: 4px;
+  min-width: 200px;
+  font: inherit;
+}
+.rg-count {
+  font-size: 0.85rem;
+  color: #5c6670;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Only the table scrolls sideways, never the page. On a phone-width community page this is the
+   difference between a usable list and a layout the user has to fight. */
+.rg-scroll {
+  overflow-x: auto;
+}
+.rg-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.rg-table th,
+.rg-table td {
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e3e6e9;
+  white-space: nowrap;
+}
+.rg-table th {
+  font-weight: 600;
+  background: #f6f7f9;
+}
+.rg-sortable {
+  background: none;
+  border: 0;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  color: inherit;
+}
+.rg-sortable:focus-visible {
+  outline: 2px solid #0176d3;
+  outline-offset: 2px;
+}
+.rg-dir {
+  color: #5c6670;
+  margin-left: 4px;
+}
+
+.rg-visually-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+.rg-state {
+  padding: 28px 12px;
+  text-align: center;
+  color: #5c6670;
+}
+.rg-error {
+  padding: 12px;
+  border-left: 3px solid #ba0517;
+  background: #fdf0ef;
+  color: #2e2e2e;
+}
+
+.rg-pager {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+.rg-pager button {
+  padding: 5px 12px;
+  border: 1px solid #c9ccd1;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+}
+.rg-pager button[disabled] {
+  opacity: 0.45;
+  cursor: default;
+}
+.rg-page {
+  font-size: 0.85rem;
+  color: #5c6670;
+  font-variant-numeric: tabular-nums;
+}

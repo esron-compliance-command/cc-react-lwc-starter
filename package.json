@@ -1,0 +1,19 @@
+{
+  "name": "cc-react-lwc-starter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Runnable reference for the Compliance Command architecture: a React + TypeScript grid, bundled with esbuild, hosted inside an LWC, backed by one generic Apex controller.",
+  "scripts": {
+    "build": "npm --prefix react-src run build",
+    "typecheck": "npm --prefix react-src run typecheck",
+    "test:react": "npm --prefix react-src test",
+    "test:lwc": "sfdx-lwc-jest",
+    "test": "npm run typecheck && npm run test:react && npm run test:lwc",
+    "deploy": "sf project deploy start --source-dir force-app",
+    "test:apex": "sf apex run test --test-level RunLocalTests --result-format human --wait 10",
+    "e2e": "npm --prefix e2e test"
+  },
+  "devDependencies": {
+    "@salesforce/sfdx-lwc-jest": "^7.0.1"
+  }
+}

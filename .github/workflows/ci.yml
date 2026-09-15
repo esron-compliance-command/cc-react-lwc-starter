@@ -1,0 +1,37 @@
+# Runs on every pull request. Nothing here needs a Salesforce org, on purpose: the checks that gate
+# a review should be fast enough that nobody is tempted to skip them.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install
+        run: |
+          npm ci
+          npm --prefix react-src ci
+
+      - name: Typecheck (strict, no any)
+        run: npm run typecheck
+
+      - name: React unit tests
+        run: npm run test:react
+
+      - name: LWC host tests
+        run: npm run test:lwc
+
+      - name: Build the bundle
+        run: npm run build
+
+      # A bundle that does not build is a broken deploy, so building here is a test, not a chore.

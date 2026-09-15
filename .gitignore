@@ -1,0 +1,11 @@
+node_modules/
+.sf/
+.sfdx/
+.localdevserver/
+react-src/dist/
+force-app/main/default/staticresources/reactGridBundle/*.js
+force-app/main/default/staticresources/reactGridBundle/*.css
+e2e/.env
+e2e/test-results/
+e2e/playwright-report/
+*.log

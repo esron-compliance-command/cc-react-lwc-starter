@@ -1,0 +1,12 @@
+<template>
+    <!--
+      lwc:dom="manual" is load-bearing. Without it, LWC owns this subtree and React's writes to it
+      are either reverted or blocked outright under synthetic shadow DOM. This attribute is how you
+      tell the framework: another library owns the children of this node.
+    -->
+    <div class="host-mount" lwc:dom="manual"></div>
+
+    <template lwc:if={hasError}>
+        <div class="host-error" role="alert">{errorMessage}</div>
+    </template>
+</template>

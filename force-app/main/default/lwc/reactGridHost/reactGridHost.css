@@ -1,0 +1,9 @@
+:host {
+    display: block;
+}
+
+.host-error {
+    padding: 12px;
+    border-left: 3px solid #ba0517;
+    background: #fdf0ef;
+}

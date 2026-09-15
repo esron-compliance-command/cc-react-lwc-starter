@@ -1,0 +1,3 @@
+The compiled bundle (reactGrid.js / reactGrid.css) lands here when you run `npm run build`.
+It is gitignored on purpose: a minified bundle in git history makes every diff unreadable and
+every merge a conflict. Build it, then deploy it.
